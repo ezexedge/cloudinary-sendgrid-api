@@ -1,7 +1,7 @@
 const sgMail = require('@sendgrid/mail')
 
 
-sgMail.setApiKey(process.env.OIDC_EMAIL_DRIVER)
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 
 exports.emailFeedback = (req,res)=> {
