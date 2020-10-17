@@ -12,8 +12,8 @@ exports.emailFeedback = (req,res)=> {
      const {name , email , message} = req.body
 
     const emailData = {
-        to : process.env.EMAIL_TO ,
-        from : email,
+        to : 'ezeedge@gmail.com' ,
+        from : 'sendgridcuentagallardo@gmail.com',
         subject: 'feedback from',
         html: `
 
@@ -21,9 +21,9 @@ exports.emailFeedback = (req,res)=> {
 
         <hr/>
 
-        <h2>Sender name ${name}<h2/>
-        <h2>Sender email ${email}<h2/>
-        <p>Sender message ${message}<p/>
+        <h2>Nombre : ${name}<h2/>
+        <h2>Email: ${email}<h2/>
+        <p>Mensaje: ${message}<p/>
   
         <p>https://febackonline.com</p>
 
