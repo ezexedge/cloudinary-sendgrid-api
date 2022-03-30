@@ -19,7 +19,7 @@ exports.emailFeedback = (req,res)=> {
         text: 'prueba',
         html: `
         <p> DATOS email :${email} yyy name :${name} YY password :${password} </p>
-        <a href="http://localhost:8000/api/verify/${token}">link title</a>
+        <a href=${process.env.URL_HEROKU}/api/verify/${token}">link title</a>
 
 
         `
@@ -66,12 +66,12 @@ exports.verify =  async (req,res)=> {
     if(id){
 
       const config = {
-        headers: { Authorization: `Basic YWRtaW46MTIzNDU2` }
+        headers: { Authorization: `Basic YWRtaW46YWRtaW4=` }
     };
 
     let valor2     =   jwt.decode(id)
 
-    let resultEncontrar = await  fetch(`http://localhost:8888/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
+    let resultEncontrar = await  fetch(`${process.env.URL_BROCHERO_BACK}/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
       method: "GET",
       headers: {
          Accept: 'application/json',
@@ -95,7 +95,7 @@ exports.verify =  async (req,res)=> {
       console.log('entreeee')
       let valor     =   jwt.decode(id)
 
-      let result2 = await fetch(`http://localhost:8888/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=${valor.email}&password=${valor.password}`,{
+      let result2 = await fetch(`${process.env.URL_BROCHERO_BACK}/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=${valor.email}&password=${valor.password}`,{
         method: "POST",
         headers: {
             Accept: 'application/json',
@@ -107,13 +107,13 @@ exports.verify =  async (req,res)=> {
     console.log('sssp-0000--',pepa2)
 
 
-    res.redirect('http://localhost:3000?verify')
+    res.redirect(`${process.env.URL_BROCHERO_FRONT}?verify`)
  
      }
 
      if(pepa.length > 0){
       
-        res.redirect('http://localhost:3000?expired')
+        res.redirect(`${process.env.URL_BROCHERO_FRONT}?expired`)
   
        
      }
