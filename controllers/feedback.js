@@ -79,7 +79,7 @@ exports.verify =  async (req,res)=> {
       headers: {
          Accept: 'application/json',
          "Content-type": "application/json",
-         Authorization: `Basic YWRtaW46MTIzNDU2`
+         Authorization: `Basic YWRtaW46YWRtaW4=`
      },
   })
 
