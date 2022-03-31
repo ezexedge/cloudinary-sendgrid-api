@@ -110,14 +110,13 @@ exports.verify =  async (req,res)=> {
 
     res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app?verify`)
  
+     }else{
+   
+       res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app?expired`)
+
      }
 
-     if(pepa.length > 0){
-      
-        res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app?expired`)
-  
-       
-     }
+   
 
     }
 
