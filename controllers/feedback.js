@@ -19,7 +19,7 @@ exports.emailFeedback = (req,res)=> {
         text: 'prueba',
         html: `
         <p> DATOS email :${email} yyy name :${name} YY password :${password} </p>
-        <a href=${process.env.URL_HEROKU}/api/verify/${token}">link title</a>
+        <a href=${process.env.URL_HEROKU}/api/verify/${token}>link title</a>
 
 
         `
@@ -63,20 +63,23 @@ exports.verify =  async (req,res)=> {
 
     const {id} = req.params
 
+   
+
     if(id){
 
-      const config = {
-        headers: { Authorization: `Basic YWRtaW46YWRtaW4=` }
-    };
+ 
+    //YWRtaW46YWRtaW4=`
 
-    let valor2     =   jwt.decode(id)
+    let valor2     =   jwt.decode(id, {complete: true});
+
+    console.log('jwtttt',id)
 
     let resultEncontrar = await  fetch(`${process.env.URL_BROCHERO_BACK}/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
       method: "GET",
       headers: {
          Accept: 'application/json',
          "Content-type": "application/json",
-         Authorization: `Basic WRtaW46YWRtaW4=`
+         Authorization: `Basic YWRtaW46MTIzNDU2`
      },
   })
 
