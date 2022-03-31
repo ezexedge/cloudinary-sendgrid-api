@@ -19,7 +19,7 @@ exports.emailFeedback = (req,res)=> {
         text: 'prueba',
         html: `
         <p> DATOS email :${email} yyy name :${name} YY password :${password} </p>
-        <a href=${process.env.URL_HEROKU}/api/verify/${token}">link title</a>
+        <a href=${process.env.URL_HEROKU}/api/verify/${token}>link title</a>
         `
       };
 
