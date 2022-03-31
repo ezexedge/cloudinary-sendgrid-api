@@ -108,13 +108,13 @@ exports.verify =  async (req,res)=> {
     console.log('sssp-0000--',pepa2)
 
 
-    res.redirect(`http://localhost:3000?verify`)
+    res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app?verify`)
  
      }
 
      if(pepa.length > 0){
       
-        res.redirect(`http://localhost:3000?expired`)
+        res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app?expired`)
   
        
      }
