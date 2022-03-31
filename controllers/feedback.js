@@ -63,13 +63,13 @@ exports.verify =  async (req,res)=> {
 
     if(id){
 
-      const config = {
-        headers: { Authorization: `Basic YWRtaW46YWRtaW4=` }
-    };
+   
 
     let valor2     =   jwt.decode(id)
 
-    let resultEncontrar = await  fetch(`${process.env.URL_BROCHERO_BACK}/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
+    console.log('..valor2',valor2)
+
+    let resultEncontrar = await  fetch(`http://dev.texdinamo.com/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
       method: "GET",
       headers: {
          Accept: 'application/json',
