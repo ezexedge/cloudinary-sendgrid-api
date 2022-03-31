@@ -93,7 +93,7 @@ exports.verify =  async (req,res)=> {
       console.log('entreeee')
       let valor     =   jwt.decode(id)
 
-      let result2 = await fetch(`${process.env.URL_BROCHERO_BACK}/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=${valor.email}&password=${valor.password}`,{
+      let result2 = await fetch(`http://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=${valor.email}&password=${valor.password}`,{
         method: "POST",
         headers: {
             Accept: 'application/json',
@@ -105,13 +105,13 @@ exports.verify =  async (req,res)=> {
     console.log('sssp-0000--',pepa2)
 
 
-    res.redirect(`${process.env.URL_BROCHERO_FRONT}?verify`)
+    res.redirect(`http://localhost:3000?verify`)
  
      }
 
      if(pepa.length > 0){
       
-        res.redirect(`${process.env.URL_BROCHERO_FRONT}?expired`)
+        res.redirect(`http://localhost:3000?expired`)
   
        
      }
