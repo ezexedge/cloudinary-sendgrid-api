@@ -74,7 +74,7 @@ exports.verify =  async (req,res)=> {
       headers: {
          Accept: 'application/json',
          "Content-type": "application/json",
-         Authorization: `Basic WRtaW46YWRtaW4=`
+         Authorization: `Basic YWRtaW46YWRtaW4=`
      },
   })
 
