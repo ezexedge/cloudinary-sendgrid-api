@@ -93,11 +93,14 @@ exports.verify =  async (req,res)=> {
       console.log('entreeee')
       let valor     =   jwt.decode(id)
 
+      console.log('valorrrrr333',valor)
+
       let result2 = await fetch(`http://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=${valor.email}&password=${valor.password}`,{
         method: "POST",
         headers: {
             Accept: 'application/json',
-            "Content-type": "application/json"
+            "Content-type": "application/json",
+            Authorization: `Basic WRtaW46YWRtaW4=`
         }
     })
 
