@@ -46,7 +46,7 @@ exports.emailFeedback = (req,res)=> {
         .sendMail(emailData)
         .then((info) => {
           console.log(info)
-          return res.json({
+          return res.status(200).json({
             message: `se realizo la inscripcion con exito y se le ah enviado informacion a su correo`,
           });
         })
@@ -57,6 +57,9 @@ exports.emailFeedback = (req,res)=> {
 
 
 exports.verify =  async (req,res)=> {
+
+
+  try{
 
 
     const {id} = req.params
@@ -125,6 +128,10 @@ exports.verify =  async (req,res)=> {
     //  console.log('ssss',id)
     //http://localhost:8888/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=NEW_USER_EMAIL&password=NEW_USER_PASSWORD
     res.status(200).json({msg: 'pepaaa'})
+
+  }catch(err){
+    console.log('....error',err)
+  }
 
 }
 
