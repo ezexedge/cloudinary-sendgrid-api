@@ -19,9 +19,7 @@ exports.emailFeedback = (req,res)=> {
         text: 'prueba',
         html: `
         <p> DATOS email :${email} yyy name :${name} YY password :${password} </p>
-        <a href=${process.env.URL_HEROKU}/api/verify/${token}>link title</a>
-
-
+        <a href=${process.env.URL_HEROKU}/api/verify/${token}">link title</a>
         `
       };
 
@@ -63,23 +61,20 @@ exports.verify =  async (req,res)=> {
 
     const {id} = req.params
 
-   
-
     if(id){
 
- 
-    //YWRtaW46YWRtaW4=`
+      const config = {
+        headers: { Authorization: `Basic YWRtaW46YWRtaW4=` }
+    };
 
-    let valor2     =   jwt.decode(id, {complete: true});
-
-    console.log('jwtttt',id)
+    let valor2     =   jwt.decode(id)
 
     let resultEncontrar = await  fetch(`${process.env.URL_BROCHERO_BACK}/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
       method: "GET",
       headers: {
          Accept: 'application/json',
          "Content-type": "application/json",
-         Authorization: `Basic YWRtaW46YWRtaW4=`
+         Authorization: `Basic WRtaW46YWRtaW4=`
      },
   })
 
@@ -143,10 +138,4 @@ exports.verify =  async (req,res)=> {
   let result = await axios.get('http://localhost:8888/curabrochero/wp-json/wp/v2/users?search=qqqq@gmai.com',config)
   console.log('.....',result)
   }
-
-
-
 */
-
-
-
