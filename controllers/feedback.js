@@ -98,13 +98,19 @@ exports.verify =  async (req,res)=> {
 
       console.log('valorrrrr333',valor)
 
+      let obj = {
+        first_name: valor.name
+      }
+
       let result2 = await fetch(`http://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=${valor.email}&password=${valor.password}`,{
         method: "POST",
         headers: {
             Accept: 'application/json',
             "Content-type": "application/json",
             Authorization: `Basic WRtaW46YWRtaW4=`
-        }
+        },
+        body: JSON.stringify(obj)
+
     })
 
     let pepa2 = await result2.json()
