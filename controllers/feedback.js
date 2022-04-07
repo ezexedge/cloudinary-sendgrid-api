@@ -102,14 +102,22 @@ exports.verify =  async (req,res)=> {
         first_name: valor.name
       }
 
-      let result2 = await fetch(`http://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users&email=${valor.email}&password=${valor.password}`,{
+
+      var formdata = new FormData();
+formdata.append("email", `${valor.email}`);
+formdata.append("password", `${valor.password}`);
+formdata.append("first_name", `${valor.name}`);
+formdata.append("last_name", "");
+formdata.append("user_meta", "{\"ciudad\":\"\",\"pais\":\"\"}");
+
+      let result2 = await fetch(`http://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users`,{
         method: "POST",
         headers: {
             Accept: 'application/json',
             "Content-type": "application/json",
             Authorization: `Basic WRtaW46YWRtaW4=`
         },
-        body: JSON.stringify(obj)
+        body: formdata
 
     })
 
