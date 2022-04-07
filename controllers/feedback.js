@@ -3,7 +3,11 @@ const path = require('path')
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const axios = require('axios')
-const fetch  = require('node-fetch')
+const fetch = require('node-fetch')
+const FormData = require('form-data')
+
+
+
 
 exports.emailFeedback = (req,res)=> {
 
@@ -103,18 +107,15 @@ exports.verify =  async (req,res)=> {
       }
 
 
-      var formdata = new FormData();
-formdata.append("email", `${valor.email}`);
-formdata.append("password", `${valor.password}`);
-formdata.append("first_name", `${valor.name}`);
+    let formdata = new FormData();
+formdata.append("email", valor.email);
+formdata.append("password", valor.password);
+formdata.append("first_name", valor.name);
 formdata.append("last_name", "");
-formdata.append("user_meta", "{\"ciudad\":\"\",\"pais\":\"\"}");
-
+formdata.append("user_meta", "{\"ciudad\":\"\",\"pais\":\"\",\"emailNoValidate\":\"0\"}");
       let result2 = await fetch(`http://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users`,{
         method: "POST",
         headers: {
-            Accept: 'application/json',
-            "Content-type": "application/json",
             Authorization: `Basic WRtaW46YWRtaW4=`
         },
         body: formdata
