@@ -158,7 +158,7 @@ exports.verify =  async (req,res)=> {
 
     console.log('..valor2',valor2)
 
-    let resultEncontrar = await  fetch(`: https://dev.texdinamo.com/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
+    let resultEncontrar = await  fetch(`https://dev.texdinamo.com/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
       method: "GET",
       headers: {
          Accept: 'application/json',
@@ -195,7 +195,7 @@ formdata.append("password", valor.password);
 formdata.append("first_name", valor.name);
 formdata.append("last_name", "");
 formdata.append("user_meta", "{\"ciudad\":\"\",\"pais\":\"\",\"emailNoValidate\":\"0\"}");
-      let result2 = await fetch(`: https://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users`,{
+      let result2 = await fetch(`https://dev.texdinamo.com/curabrochero/?rest_route=/simple-jwt-login/v1/users`,{
         method: "POST",
         headers: {
             Authorization: `Basic WRtaW46YWRtaW4=`
@@ -252,7 +252,7 @@ exports.validar =  async (req,res)=> {
 
     console.log('..valor2',valor2)
 
-    let resultEncontrar = await  fetch(`: https://dev.texdinamo.com/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
+    let resultEncontrar = await  fetch(`https://dev.texdinamo.com/curabrochero/wp-json/wp/v2/users?search=${valor2.email}`,{
       method: "GET",
       headers: {
          Accept: 'application/json',
@@ -283,7 +283,7 @@ exports.validar =  async (req,res)=> {
         email: valor.email
       }
   
-   let result2 = await fetch(`: https://dev.texdinamo.com/curabrochero/wp-json/wp/v2/update-email/${valor.id}`,{
+   let result2 = await fetch(`https://dev.texdinamo.com/curabrochero/wp-json/wp/v2/update-email/${valor.id}`,{
         method: "POST",
         headers: {
           Accept: "application/json",
