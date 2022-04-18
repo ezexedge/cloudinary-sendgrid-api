@@ -208,11 +208,11 @@ formdata.append("user_meta", "{\"ciudad\":\"\",\"pais\":\"\",\"emailNoValidate\"
     console.log('sssp-0000--',JSON.stringify(pepa2))
 
 
-    res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app/login?verify`)
+    res.redirect(`https://my-app-2-7q6m3.ondigitalocean.app/login?verify`)
  
      }else{
    
-       res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app/login?expired`)
+       res.redirect(`https://my-app-2-7q6m3.ondigitalocean.app/login?expired`)
 
      }
 
@@ -295,13 +295,13 @@ exports.validar =  async (req,res)=> {
 
     let pepa2 = await result2.json()
     console.log('sssp-0000--',pepa2)
+//https://my-app-2-7q6m3.ondigitalocean.app/register
 
-
-    res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app?verify`)
+    res.redirect(`https://my-app-2-7q6m3.ondigitalocean.appverify`)
  
      }else{
    
-       res.redirect(`https://pwa-turismo-nblu2.ondigitalocean.app?expired`)
+       res.redirect(`https://my-app-2-7q6m3.ondigitalocean.app?expired`)
 
      }
 
