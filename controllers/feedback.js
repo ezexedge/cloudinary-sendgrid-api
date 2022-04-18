@@ -297,11 +297,11 @@ exports.validar =  async (req,res)=> {
     console.log('sssp-0000--',pepa2)
 //https://my-app-2-7q6m3.ondigitalocean.app/register
 
-    res.redirect(`https://my-app-2-7q6m3.ondigitalocean.appverify`)
+    res.redirect(`https://my-app-2-7q6m3.ondigitalocean.app/login?verify`)
  
      }else{
    
-       res.redirect(`https://my-app-2-7q6m3.ondigitalocean.app?expired`)
+       res.redirect(`https://my-app-2-7q6m3.ondigitalocean.app/login?expired`)
 
      }
 
