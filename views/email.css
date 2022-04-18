@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+h2 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+
+p {
+    line-height: 2;
+    color: black!important;
+}
+
+.img-class {
+  width: 40%;
+  height: auto;
+}
+.header{
+    display: flex;
+    justify-content: start;
+}
