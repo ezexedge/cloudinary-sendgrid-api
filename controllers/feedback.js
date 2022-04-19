@@ -9,6 +9,7 @@ const pug = require('pug');
 const htmlToText = require('html-to-text');
 const util = require('util');
 const juice = require('juice');
+const hbs = require('nodemailer-express-handlebars')
 
 const generarHTML = ( opciones = {}) => {
   const html = pug.renderFile(`${__dirname}/../views/email-enviar.pug`, opciones);
@@ -33,17 +34,9 @@ console.log('aca llego el id y el email',id,email)
 const token = jwt.sign({ id,email }, 'cocopepa' , { expiresIn: '10m' });
 
   let resetUrl = `https://email-brochero-api.herokuapp.com/api/validar/${token}`
-  const html = generarHTML2( {resetUrl} );
 
   //buscar que va en opciones,archivo y ,opciones
 
-  const emailData = {
-      from: "juan@texdinamo.com", 
-      to: email,
-      subject: "NUEVO CORREO VALIDAR",
-      text: 'prueba',
-      html: html
-    };
 
     
 
@@ -63,6 +56,26 @@ const token = jwt.sign({ id,email }, 'cocopepa' , { expiresIn: '10m' });
     });
   
 
+    const handlebarOptions = {
+      viewEngine: {
+          partialsDir: path.resolve( __dirname + '/../views/emails'),
+          defaultLayout: false,
+      },
+      viewPath: path.resolve( __dirname + '/../views/emails'),
+  };
+  
+    transporter.use('compile', hbs(handlebarOptions))
+   
+    const emailData = {
+      from: "juan@texdinamo.com", 
+      to: email,
+      subject: "NUEVO CORREO VALIDAR",
+      text: 'prueba',
+      template: 'validaremail',
+      context:{
+        url: resetUrl
+      }
+    };
 
    
     return transporter
@@ -92,20 +105,10 @@ exports.emailFeedback = (req,res)=> {
     const token = jwt.sign({ name, email, password }, 'cocopepa' , { expiresIn: '10m' });
 
     let resetUrl = `https://email-brochero-api.herokuapp.com/api/verify/${token}`
-    const html = generarHTML( {resetUrl} );
 
     //buscar que va en opciones,archivo y ,opciones
 
-    const emailData = {
-        from: "juan@texdinamo.com", 
-        to: email,
-        subject: "CURABROCHERO VALIDAR EMAIL",
-        text: 'prueba',
-        html: html
-      };
 
-      
-  
     const transporter = nodeMailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -122,7 +125,26 @@ exports.emailFeedback = (req,res)=> {
       });
     
 
-
+      const handlebarOptions = {
+        viewEngine: {
+            partialsDir: path.resolve( __dirname + '/../views/emails'),
+            defaultLayout: false,
+        },
+        viewPath: path.resolve( __dirname + '/../views/emails'),
+    };
+    
+      transporter.use('compile', hbs(handlebarOptions))
+     
+      const emailData = {
+        from: "juan@texdinamo.com", 
+        to: email,
+        subject: "VALIDAR CUENTA",
+        text: 'prueba',
+        template: 'register',
+        context:{
+          url: resetUrl
+        }
+      };
      
       return transporter
         .sendMail(emailData)
@@ -333,3 +355,75 @@ exports.validar =  async (req,res)=> {
   console.log('.....',result)
   }
 */
+
+
+
+
+exports.prueba = async(req,res)=> {
+
+
+
+
+
+
+// use a template file with nodemailer
+
+
+  //buscar que va en opciones,archivo y ,opciones
+
+
+    let textUrl = 'https://www.youtube.com/watch?v=hnaZ83UD6Z0&list=RDhnaZ83UD6Z0&index=1'
+
+  const transporter = nodeMailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      pool: true, // This is the field you need to add
+      requireTLS: true,
+      auth: {
+        user: "juan@texdinamo.com", // MAKE SURE THIS EMAIL IS YOUR GMAIL FOR WHICH YOU GENERATED APP PASSWORD
+        pass: 'evkvepvzgeoeloga', // MAKE SURE THIS PASSWORD IS YOUR GMAIL APP PASSWORD WHICH YOU GENERATED EARLIER
+      },
+      tls: {
+        ciphers: "SSLv3",
+      },
+    });
+  
+    const handlebarOptions = {
+      viewEngine: {
+          partialsDir: path.resolve( __dirname + '/../views/emails'),
+          defaultLayout: false,
+      },
+      viewPath: path.resolve( __dirname + '/../views/emails'),
+  };
+  
+    transporter.use('compile', hbs(handlebarOptions))
+   
+    const emailData = {
+      from: "juan@texdinamo.com", 
+      to: 'ezeedge@gmail.com',
+      subject: "NUEVO CORREO VALIDAR",
+      text: 'prueba',
+      template: 'reset',
+      context:{
+        url: textUrl
+      }
+    };
+
+
+
+    return transporter
+      .sendMail(emailData)
+      .then((info) => {
+        transporter.close();
+        console.log(info)
+        
+        return res.status(200).json({
+          message: `se realizo la inscripcion con exito y se le ah enviado informacion a su correo`,
+        });
+        
+      })
+      .catch((err) => console.log(`Problem sending email: ${err}`));   
+  
+
+}
