@@ -427,3 +427,137 @@ exports.prueba = async(req,res)=> {
   
 
 }
+
+
+
+
+exports.resetPassword = async(req,res)=> {
+
+  const { email } = req.body;
+
+
+
+
+  let obj2 = {
+    email: email
+  }
+
+  let resultEncontrar = await  fetch(`https://dev.texdinamo.com/curabrocheros/wp-json/wp/v2/search`,{
+    method: "POST",
+    headers: {
+       Accept: 'application/json',
+       "Content-type": "application/json",
+   },
+   body: JSON.stringify(obj2)
+
+})
+
+let pepa = await resultEncontrar.json()
+
+
+
+console.log('s.......',pepa)
+
+
+  
+
+  
+   if(pepa.error){
+
+    res.status(400).json({error: 'El usuario no existe'})
+    return
+
+   }
+
+
+
+
+
+let obj = {
+  email: email
+}
+
+let result2 = await fetch(`https://dev.texdinamo.com/curabrochero/wp-json/wp/v2/create-token`,{
+  method: "POST",
+  headers: {
+    Accept: "application/json",
+    "Content-type" : "application/json"
+  },
+  body: JSON.stringify(obj)
+
+
+})
+
+let pepa2 = await result2.json()
+console.log('sssp-0000--',pepa2)
+
+
+if(pepa2 && pepa2.message){
+
+
+  let textUrl = `https://my-app-2-7q6m3.ondigitalocean.app/register-password?token=${pepa2.message}`
+
+
+  const transporter = nodeMailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    pool: true, // This is the field you need to add
+    requireTLS: true,
+    auth: {
+      user: "juan@texdinamo.com", // MAKE SURE THIS EMAIL IS YOUR GMAIL FOR WHICH YOU GENERATED APP PASSWORD
+      pass: 'evkvepvzgeoeloga', // MAKE SURE THIS PASSWORD IS YOUR GMAIL APP PASSWORD WHICH YOU GENERATED EARLIER
+    },
+    tls: {
+      ciphers: "SSLv3",
+    },
+  });
+  
+  const handlebarOptions = {
+    viewEngine: {
+        partialsDir: path.resolve( __dirname + '/../views/emails'),
+        defaultLayout: false,
+    },
+    viewPath: path.resolve( __dirname + '/../views/emails'),
+  };
+  
+  transporter.use('compile', hbs(handlebarOptions))
+  
+  const emailData = {
+    from: "juan@texdinamo.com", 
+    to: email,
+    subject: "Recupero de contraseña",
+    text: 'prueba',
+    template: 'resetpassword',
+    context:{
+      url: textUrl
+    }
+  };
+  
+  
+  
+  return transporter
+    .sendMail(emailData)
+    .then((info) => {
+      transporter.close();
+      console.log(info)
+      
+      return res.status(200).json({
+        message: `se realizo la inscripcion con exito y se le ah enviado informacion a su correo`,
+      });
+      
+    })
+    .catch((err) => console.log(`Problem sending email: ${err}`));   
+  
+  
+}else{
+  res.status(400).json({error: 'error al reset passwords'})
+}
+
+
+
+   
+
+  
+
+}
