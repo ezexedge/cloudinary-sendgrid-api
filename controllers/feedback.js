@@ -436,11 +436,13 @@ exports.resetPassword = async(req,res)=> {
   const { email } = req.body;
 
 
-
+  
 
   let obj2 = {
     email: email
   }
+
+  console.log('ooooobj2',obj2)
 
   let resultEncontrar = await  fetch(`https://dev.texdinamo.com/curabrocheros/wp-json/wp/v2/search`,{
     method: "POST",
@@ -452,10 +454,13 @@ exports.resetPassword = async(req,res)=> {
 
 })
 
-let pepa = await resultEncontrar.json()
+let pepa = await resultEncontrar
 
 
 
+
+
+console.log('s.......',resultEncontrar)
 console.log('s.......',pepa)
 
 
@@ -464,6 +469,8 @@ console.log('s.......',pepa)
   
    if(pepa.error){
 
+
+    
     res.status(400).json({error: 'El usuario no existe'})
     return
 
